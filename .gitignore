@@ -1,0 +1,9 @@
+# The key itself. Never commit.
+.passcode
+
+# Plaintext renders. Only ciphertext ships.
+*.plain.html
+mission-control.html
+
+.DS_Store
+__pycache__/
