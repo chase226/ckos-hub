@@ -33,10 +33,12 @@ fi
 say "Rebuilding Mission Control..."
 python3 build.py >/dev/null
 
-if [ ! -s data/hub.enc.json ]; then
-  echo "build.py produced no ciphertext. Refusing to deploy." >&2
-  exit 1
-fi
+for blob in data/hub.enc.json data/library.enc.json; do
+  if [ ! -s "$blob" ]; then
+    echo "build.py produced no ciphertext for $blob. Refusing to deploy." >&2
+    exit 1
+  fi
+done
 
 # Guard: never let a plaintext render reach the repo.
 if git ls-files --error-unmatch mission-control.html >/dev/null 2>&1; then

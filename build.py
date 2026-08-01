@@ -33,9 +33,19 @@ from cryptography.hazmat.primitives.ciphers.aead import AESGCM
 
 ROOT = Path(__file__).resolve().parent
 CKOS = ROOT.parent.parent / "CKOS"
-RENDERER = CKOS / "tools" / "mission_control.py"
-PAGE = CKOS / "reports" / "mission-control.html"
-OUT = ROOT / "data" / "hub.enc.json"
+# Each entry: renderer script, rendered page, encrypted output, payload title.
+# Mission Control is the state of everything; the Library is every deliverable
+# CKOS has produced, indexed by topic so nothing needs a file path to find.
+PAGES = [
+    (CKOS / "tools" / "mission_control.py",
+     CKOS / "reports" / "mission-control.html",
+     ROOT / "data" / "hub.enc.json",
+     "CKOS Mission Control"),
+    (CKOS / "tools" / "library.py",
+     CKOS / "reports" / "library.html",
+     ROOT / "data" / "library.enc.json",
+     "CKOS Library"),
+]
 
 PBKDF2_ITERATIONS = 250_000
 
@@ -68,30 +78,30 @@ def resolve_passcode():
 
 
 def main():
-    if "--no-render" not in sys.argv:
-        # Always rebuild from live state so the deployed page is never stale.
-        subprocess.run([sys.executable, str(RENDERER)], check=True)
-
-    if not PAGE.exists():
-        sys.exit(f"Missing {PAGE}. Run mission_control.py first.")
-
     passcode = resolve_passcode()
     if len(passcode) < 8:
         sys.exit("Passcode must be at least 8 characters.")
 
-    html = PAGE.read_text()
-    payload = {
-        "generatedAt": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
-        "title": "CKOS Mission Control",
-        "html": html,
-    }
-    blob = json.dumps(payload, separators=(",", ":")).encode()
+    for renderer, page, out, title in PAGES:
+        if "--no-render" not in sys.argv:
+            # Always rebuild from live state so the deployed page is never stale.
+            subprocess.run([sys.executable, str(renderer)], check=True)
 
-    OUT.parent.mkdir(parents=True, exist_ok=True)
-    OUT.write_text(json.dumps(encrypt(blob, passcode), indent=2))
+        if not page.exists():
+            sys.exit(f"Missing {page}. Run {renderer.name} first.")
 
-    print(f"Wrote {OUT.relative_to(ROOT)}")
-    print(f"  {len(blob):,} bytes plaintext -> {OUT.stat().st_size:,} bytes ciphertext")
+        payload = {
+            "generatedAt": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
+            "title": title,
+            "html": page.read_text(),
+        }
+        blob = json.dumps(payload, separators=(",", ":")).encode()
+
+        out.parent.mkdir(parents=True, exist_ok=True)
+        out.write_text(json.dumps(encrypt(blob, passcode), indent=2))
+
+        print(f"Wrote {out.relative_to(ROOT)}")
+        print(f"  {len(blob):,} bytes plaintext -> {out.stat().st_size:,} bytes ciphertext")
 
 
 if __name__ == "__main__":
