@@ -59,8 +59,8 @@ python3 build.py
 
 | Source | Becomes |
 |---|---|
-| `CKOS/state/hub.json` | The one thing, week, workstreams, triggers, conflicts, parked |
-| `CKOS/threads/*.md` | The "Where we left off" cards |
-| `CKOS/decisions/log.md` | Locked decisions |
+| `_system/state/hub.json` | The one thing, week, workstreams, triggers, conflicts, parked |
+| `_system/threads/*.md` | The "Where we left off" cards |
+| `_system/decisions/log.md` | Locked decisions |
 
-Edit those, not the HTML. `CKOS/tools/mission_control.py` renders it.
+Edit those, not the HTML. `_system/tools/mission_control.py` renders it.

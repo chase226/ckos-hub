@@ -32,17 +32,18 @@ from pathlib import Path
 from cryptography.hazmat.primitives.ciphers.aead import AESGCM
 
 ROOT = Path(__file__).resolve().parent
-CKOS = ROOT.parent.parent / "CKOS"
+sys.path.insert(0, str(ROOT.parent / "tools"))
+from ckos_paths import TOOLS, SYSTEM_REPORTS   # noqa: E402
 # Each entry: renderer script, rendered page, encrypted output, payload title.
 # Mission Control is the state of everything; the Library is every deliverable
 # CKOS has produced, indexed by topic so nothing needs a file path to find.
 PAGES = [
-    (CKOS / "tools" / "mission_control.py",
-     CKOS / "reports" / "mission-control.html",
+    (TOOLS / "mission_control.py",
+     SYSTEM_REPORTS / "mission-control.html",
      ROOT / "data" / "hub.enc.json",
      "CKOS Mission Control"),
-    (CKOS / "tools" / "library.py",
-     CKOS / "reports" / "library.html",
+    (TOOLS / "library.py",
+     SYSTEM_REPORTS / "library.html",
      ROOT / "data" / "library.enc.json",
      "CKOS Library"),
 ]
