@@ -31,6 +31,7 @@ fi
 # ------------------------------------------------------------ rebuild --
 # Always regenerate from live CKOS state so the deployed page is never stale.
 say "Rebuilding Mission Control..."
+python3 ../tools/routine_health.py >/dev/null || true
 python3 build.py >/dev/null
 
 for blob in data/hub.enc.json data/library.enc.json; do

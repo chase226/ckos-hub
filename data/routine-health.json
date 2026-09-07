@@ -1,0 +1,37 @@
+{
+  "generated": "2026-09-07T18:54-04:00",
+  "jobs": [
+    {
+      "label": "com.ckos.hub-deploy",
+      "name": "Mission Control hub deploy (5:40 AM)",
+      "kind": "launchd on Mac",
+      "last_status": "failed",
+      "last_run": "2026-09-07T05:42-04:00",
+      "last_line": "/bin/bash: /Users/theboss/Desktop/Desktop - Chase\u2019s Laptop/Claude OS/_system/hub/deploy.sh: Operation not permitted"
+    },
+    {
+      "label": "com.ckos.fl-house-watch",
+      "name": "FL house watch (6:30 AM)",
+      "kind": "launchd on Mac",
+      "last_status": "failed",
+      "last_run": "2026-09-07T06:30-04:00",
+      "last_line": "ValueError: No objects to concatenate"
+    },
+    {
+      "label": "com.ckos.deal-screen-monday",
+      "name": "Deal screen refresh (Mon 6 AM)",
+      "kind": "launchd on Mac",
+      "last_status": "ok",
+      "last_run": null,
+      "last_line": ""
+    },
+    {
+      "label": "com.ckos.deal-screen-wednesday",
+      "name": "Deal of the Week draft (Wed 8 AM)",
+      "kind": "launchd on Mac",
+      "last_status": "ok",
+      "last_run": null,
+      "last_line": ""
+    }
+  ]
+}
