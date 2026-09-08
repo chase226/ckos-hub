@@ -1,12 +1,12 @@
 {
-  "generated": "2026-09-07T18:57-04:00",
+  "generated": "2026-09-08T12:02-04:00",
   "jobs": [
     {
       "label": "com.ckos.hub-deploy",
       "name": "Mission Control hub deploy (5:40 AM)",
       "kind": "launchd on Mac",
       "last_status": "failed",
-      "last_run": "2026-09-07T05:42-04:00",
+      "last_run": "2026-09-08T05:40-04:00",
       "last_line": "/bin/bash: /Users/theboss/Desktop/Desktop - Chase\u2019s Laptop/Claude OS/_system/hub/deploy.sh: Operation not permitted"
     },
     {
@@ -14,8 +14,8 @@
       "name": "FL house watch (6:30 AM)",
       "kind": "launchd on Mac",
       "last_status": "failed",
-      "last_run": "2026-09-07T06:30-04:00",
-      "last_line": "ValueError: No objects to concatenate"
+      "last_run": "2026-09-08T06:30-04:00",
+      "last_line": "FileNotFoundError: [Errno 2] No such file or directory: 'gws'"
     },
     {
       "label": "com.ckos.deal-screen-monday",
